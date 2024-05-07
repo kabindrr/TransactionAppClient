@@ -55,7 +55,8 @@ export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
       // label: "Amount",
       name: "amount",
       type: "number",
-      placeholder: "2345",
+      placeholder: "Enter Amount",
+      min: "1",
       required: true,
     },
     {

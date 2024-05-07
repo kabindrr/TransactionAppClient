@@ -9,7 +9,7 @@ export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...Form, [name]: value });
+
     setForm({
       ...form,
       [name]: value,
@@ -22,7 +22,7 @@ export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
 
     toast[status](message);
 
-    status === "success" && (getUserTransactions(), setShowForm(false));
+    status === "success" && getUserTransactions() && setShowForm(false);
   };
 
   const inputs = [
@@ -69,18 +69,17 @@ export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
     <Form className="shadow-lg p-3 border rounded" onSubmit={handleOnSubmit}>
       <Row>
         <Col>
-          {inputs.map(({ elmType, ...item }, i) => {
-            return elmType === "select" ? (
+          {inputs.map(({ elmType, ...item }, i) =>
+            elmType === "select" ? (
               <CustomSelect key={i} {...item} onChange={handleOnChange} />
             ) : (
               <CustomInpute key={i} {...item} onChange={handleOnChange} />
-            );
-          })}
-          <Col className="mb-3">
-            <Button variant="primary" type="submit" className="w-100">
-              Add Transaction
-            </Button>
-          </Col>
+            )
+          )}
+
+          <Button variant="primary" type="submit" className="w-100">
+            Add Transaction
+          </Button>
         </Col>
       </Row>
     </Form>

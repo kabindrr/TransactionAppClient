@@ -1,4 +1,4 @@
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { TopNav } from "../components/TopNav";
 import { Footer } from "../components/Footer";
 import { AuthComp } from "../components/AuthComp";
@@ -12,7 +12,7 @@ import { CustomModal } from "../components/CustomModal";
 
 const Dashboard = ({ loggedInUser }) => {
   const [transactions, setTransactions] = useState([]);
-  const [showForm, setShowForm] = useState([false]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     getUserTransactions();
@@ -32,9 +32,15 @@ const Dashboard = ({ loggedInUser }) => {
       <Container className="main pt-2">
         <h4>Dashboar | Welcome back {loggedInUser?.name}</h4>
         <hr />
-
-        <CustomModal title="Add new transaction">
-          <NewTransForm getUserTransactions={getUserTransactions} />
+        <CustomModal
+          title="Add new transaction"
+          show={showForm}
+          setShowForm={setShowForm}
+        >
+          <NewTransForm
+            getUserTransactions={getUserTransactions}
+            setShowForm={setShowForm}
+          />
         </CustomModal>
 
         <Row>
@@ -44,7 +50,6 @@ const Dashboard = ({ loggedInUser }) => {
             </Button>
           </Col>
         </Row>
-
         <Row className="mt-5">
           <Col>
             <TransactionTable transactions={transactions} />

@@ -4,12 +4,12 @@ import { CustomInpute, CustomSelect } from "./CustomInpute";
 import { postNewTrans } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
 
-export const NewTransForm = ({ getUserTransactions }) => {
+export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
   const [form, setForm] = useState({});
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-
+    setForm({ ...Form, [name]: value });
     setForm({
       ...form,
       [name]: value,
@@ -22,7 +22,7 @@ export const NewTransForm = ({ getUserTransactions }) => {
 
     toast[status](message);
 
-    status === "success" && getUserTransactions();
+    status === "success" && (getUserTransactions(), setShowForm(false));
   };
 
   const inputs = [
@@ -68,19 +68,19 @@ export const NewTransForm = ({ getUserTransactions }) => {
   return (
     <Form className="shadow-lg p-3 border rounded" onSubmit={handleOnSubmit}>
       <Row>
-        {inputs.map(({ elmType, ...item }, i) => (
-          <Col md={2} key={i}>
-            {elmType === "select" ? (
-              <CustomSelect {...item} onChange={handleOnChange} />
+        <Col>
+          {inputs.map(({ elmType, ...item }, i) => {
+            return elmType === "select" ? (
+              <CustomSelect key={i} {...item} onChange={handleOnChange} />
             ) : (
-              <CustomInpute {...item} onChange={handleOnChange} />
-            )}
+              <CustomInpute key={i} {...item} onChange={handleOnChange} />
+            );
+          })}
+          <Col className="mb-3">
+            <Button variant="primary" type="submit" className="w-100">
+              Add Transaction
+            </Button>
           </Col>
-        ))}
-        <Col className="mb-3">
-          <Button variant="primary" type="submit" className="w-100">
-            Add Transaction
-          </Button>
         </Col>
       </Row>
     </Form>

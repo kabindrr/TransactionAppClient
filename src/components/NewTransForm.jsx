@@ -3,10 +3,11 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { CustomInpute, CustomSelect } from "./CustomInpute";
 import { postNewTrans } from "../helpers/axiosHelper";
 import { toast } from "react-toastify";
+import { useUser } from "../UserContext";
 
-export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
+export const NewTransForm = () => {
   const [form, setForm] = useState({});
-
+  const { getUserTransactions, setShowForm } = useUser();
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
@@ -55,7 +56,7 @@ export const NewTransForm = ({ getUserTransactions, setShowForm }) => {
       // label: "Amount",
       name: "amount",
       type: "number",
-      placeholder: "Enter Amount",
+      placeholder: "2345",
       min: "1",
       required: true,
     },

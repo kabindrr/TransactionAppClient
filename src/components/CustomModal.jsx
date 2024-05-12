@@ -1,10 +1,12 @@
 import Modal from "react-bootstrap/Modal";
+import { useUser } from "../UserContext";
 
-export const CustomModal = ({ children, title, show, setShowForm }) => {
+export const CustomModal = ({ children, title }) => {
+  const { setShowForm, showForm } = useUser();
   return (
     <>
       <Modal
-        show={show}
+        show={showForm}
         onHide={setShowForm}
         backdrop="static"
         keyboard={false}
